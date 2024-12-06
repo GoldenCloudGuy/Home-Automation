@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "commands": {
+      ".read": "true",
+      ".write": "true"
+    },
+    "Devices": {
+      ".read": "true",
+      ".write": "true"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+  </head>
+  <body style="display:flex;justify-content:center; align-items:center;height:100%;width:100%">
+    <button id="lockButton">Lock Samuels PC</button>
+  </body>
+
+  <script type="module">
+    // Import Firebase Modular SDK functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+    // Firebase configuration (replace with your own config)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCsSpx1gDaVUJm2hDch71qmZdC0ZKf5kbg",
+      authDomain: "home-automation-sdmh.firebaseapp.com",
+      databaseURL: "https://home-automation-sdmh-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "home-automation-sdmh",
+      storageBucket: "home-automation-sdmh.firebasestorage.app",
+      messagingSenderId: "696442916074",
+      appId: "1:696442916074:web:6165ac4885543911efdb93",
+      measurementId: "G-F1WZPWJCHR",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Get a reference to the database
+    const db = getDatabase(app);
+
+    // Variable to store lock state
+    let lock = false;
+
+    // Event listener for button click to set lock to true
+    document.getElementById('lockButton').addEventListener('click', function () {
+      console.log("Button clicked. Setting lock to true.");
+      lock = true;
+
+      // Update the database to reflect the new lock state
+      const lockRef = ref(db, "commands/lock");
+      set(lockRef, lock)
+        .then(() => {
+          console.log("Lock state updated in the database.");
+        })
+        .catch((error) => {
+          console.error("Error updating lock state:", error);
+        });
+    });
+
+    // Output for debugging
+    console.log("Waiting for button click to lock...");
+  </script>
+</html>
